@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include "projectheader.h"
 
-//declaring the various global variables in the program Hamngman 
+//declaring the various global variables in the program Hangman 
 char *choices[]={"READ_DEMO","PLAY_DEMO","PLAY_GAME","DISPLAY_SCORE","EXIT"};
 int n_choices=sizeof(choices)/sizeof(char*);
 int row,col;
