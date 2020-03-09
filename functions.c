@@ -331,7 +331,7 @@ HERE:
 //	wattroff(w,COLOR_PAIR(0));
 	sleep (1);
 	delwin(w);
-	if(i!=0)
+	if(i!=-1)
 		goto HERE;
 	w=create(10,10);
 
@@ -1238,3 +1238,9 @@ void print_yes_no(WINDOW *w,int h)
 }
 
 
+
+ int leveltime();
+{   WINDOW *w;
+    create(10,10);
+    mvwprintw(w,15,10,"Welcome to the level of Time\n");
+  
