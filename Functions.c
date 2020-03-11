@@ -15,16 +15,21 @@ WINDOW *create(int a,int b)
 	w=newwin((row*3)/4,(col*3)/4,a,b);
 	start_color();
 
-	init_pair(0,COLOR_BLUE,COLOR_BLACK);
-	wattron(w,COLOR_PAIR(0));
+	init_pair(1,COLOR_BLUE,COLOR_BLACK);
+	init_pair(2,COLOR_RED,COLOR_BLACK);
+	init_pair(3,COLOR_YELLOW,COLOR_BLACK);
+	init_pair(4,COLOR_GREEN,COLOR_BLACK);
+	wattron(w,COLOR_PAIR(1));
+	wattron(w,A_REVERSE);
 
-	wborder(w,'|','|','-','-','+','+','+','+');
-//	box(w,0,0);
+//	wborder(w,'|','|','-','-','+','+','+','+');
+	box(w,0,0);
 
 	mvwprintw(w,1,36,"HANGMAN!!!");
 	refresh();
 	wrefresh(w);
-	wattroff(w,COLOR_PAIR(0));
+	wattroff(w,A_REVERSE);
+	wattroff(w,COLOR_PAIR(1));
 	return w;
 }
 
@@ -37,6 +42,7 @@ delwin(w);
 //TO display the picture of a hangman//
 void game_over(WINDOW *w)
 {
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,8,36,"___");
 	mvwprintw(w,9,37,"|");
 	mvwprintw(w,10,37,"O");
@@ -45,10 +51,12 @@ void game_over(WINDOW *w)
 	mvwprintw(w,11,38,"\\ ");
 	mvwprintw(w,12,36,"/");
 	mvwprintw(w,12,38,"\\");
+	wattroff(w,COLOR_PAIR(2));
 } 
 
 void game_five(WINDOW *w)
 {
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,8,36,"___");
 	mvwprintw(w,9,37,"|");
 	mvwprintw(w,10,37,"O");
@@ -56,41 +64,52 @@ void game_five(WINDOW *w)
 	mvwprintw(w,11,37,"|");
 	mvwprintw(w,11,38,"\\ ");
 	mvwprintw(w,12,36,"/");
+	wattroff(w,COLOR_PAIR(2));
 } 
 void game_four(WINDOW *w)
 {
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,8,36,"___");
 	mvwprintw(w,9,37,"|");
 	mvwprintw(w,10,37,"O");
 	mvwprintw(w,11,36,"/");
 	mvwprintw(w,11,37,"|");
 	mvwprintw(w,11,38,"\\ ");
+	wattroff(w,COLOR_PAIR(2));
 } 
 void game_three(WINDOW *w)
 {
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,8,36,"___");
 	mvwprintw(w,9,37,"|");
 	mvwprintw(w,10,37,"O");
 	mvwprintw(w,11,36,"/");
 	mvwprintw(w,11,37,"|");
+	wattroff(w,COLOR_PAIR(2));
 } 
 void game_two(WINDOW *w)
 {
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,8,36,"___");
 	mvwprintw(w,9,37,"|");
 	mvwprintw(w,10,37,"O");
 	mvwprintw(w,11,36,"/");
+	wattroff(w,COLOR_PAIR(2));
 } 
 void game_one(WINDOW *w)
 {
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,8,36,"___");
 	mvwprintw(w,9,37,"|");
 	mvwprintw(w,10,37,"O");
+	wattroff(w,COLOR_PAIR(2));
 }
 void game_zero(WINDOW *w)
 {
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,8,36,"___");
 	mvwprintw(w,9,37,"|");
+	wattroff(w,COLOR_PAIR(2));
 }
 
 //function to display the hangman in steps
@@ -121,14 +140,11 @@ void Display_man(WINDOW *w,int level)
 void start_game()
 { 
 	WINDOW *w;
-	int i=9;
+	int i=1;
 HERE:
 	w=create(10,10);
-//start_color();
-	//init_pair(0,COLOR_RED,COLOR_BLACK);
-//	init_pair(0,COLOR_BLUE,COLOR_BLACK);
-	
-//	wattron(w,COLOR_PAIR(0));
+
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,2,10,"___");
 	mvwprintw(w,3,11,"|");
 	mvwprintw(w,4,10," O");
@@ -136,8 +152,10 @@ HERE:
 	mvwprintw(w,5,11,"|");
 	mvwprintw(w,5,12,"\\ ");
 	mvwprintw(w,6,10,"/");
-	mvwprintw(w,6,11," \\");
+	mvwprintw(w,6,11," \\");;
+	wattroff(w,COLOR_PAIR(2));
                         
+	wattron(w,COLOR_PAIR(3));
 	mvwprintw(w,7,2,"Hangman welcomes you to the game");
 	mvwprintw(w,9,2,"The game 'HANGMAN' is a word oriented game.");
 	mvwprintw(w,10,2," It consists of a set of questions in each level.");
@@ -152,27 +170,29 @@ HERE:
 	refresh();
 	wrefresh(w);
 	wclear(w);
-//	wattroff(w,COLOR_PAIR(0));
+	wattroff(w,COLOR_PAIR(3));
 	sleep (1);
 	delwin(w);
 	if(i!=-1)
 		goto HERE;
 	w=create(10,10);
 
-//	wattron(w,COLOR_PAIR(0));
+	wattron(w,COLOR_PAIR(3));
 	mvwprintw(w,10,5,"press any key on a keyboard to start the game");
+	wattroff(w,COLOR_PAIR(3));
+	wattron(w,COLOR_PAIR(2));
 	mvwprintw(w,4,10,"O");
 	mvwprintw(w,5,9,"/");
 	mvwprintw(w,5,10,"|");
 	mvwprintw(w,5,11,"\\");
 	mvwprintw(w,6,9,"/");
 	mvwprintw(w,6,10," \\");
+	wattroff(w,COLOR_PAIR(2));
 	refresh();
 	wrefresh(w);
 	getch();
 	wclear(w);
 	delwin(w);
-//	wattroff(w,COLOR_PAIR(0));
 }
 
 
@@ -258,7 +278,8 @@ void levelcheck(int level)
 	WINDOW *w;
 	w=create(10,10);
 	if(level==4)
-	{  mvwprintw(w,10,33,"\\");
+	{  	wattron(w,COLOR_PAIR(4));
+		mvwprintw(w,10,33,"\\");
 		mvwprintw(w,10,34,"O/");
 		mvwprintw(w,11,34,"|");
 		mvwprintw(w,12,35,"\\ ");
@@ -266,6 +287,7 @@ void levelcheck(int level)
 		mvwprintw(w,14,30,"Hangman is saved ");
 		mvwprintw(w,15,30,"MISSION COMPLETED");
 		mvwprintw(w,16,30,"CONGRATULATIONS...");
+		wattroff(w,COLOR_PAIR(4));
 	}
 	else if(level==1 || level==2 || level==3)
 	{mvwprintw(w,23,15,"Conratulations... Level");
@@ -368,14 +390,22 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 		mvwprintw(wi,1,36,"HANGMAN!!!");
 		mvwprintw(wi,1,70,"LEVEL::");
 		mvwprintw(wi,1,79,"%d",level);
+		wattron(wi,COLOR_PAIR(4));
 		mvwprintw(wi,2,70,"SCORE::");
 		mvwprintw(wi,2,79,"%d",(*score));
+		wattroff(wi,COLOR_PAIR(4));
 		mvwprintw(wi,4,2,"HINT::");
 		mvwprintw(wi,4,8,"%s",hint);
+	wattron(wi,COLOR_PAIR(3));
 		mvwprintw(wi,3,79,"%d",6-(*chances));
 		mvwprintw(wi,3,63,"CHANCES LEFT::");
+	wattroff(wi,COLOR_PAIR(3));
+	wattron(wi,COLOR_PAIR(4));
 		mvwprintw(wi,17,2,"FORMING WORD");
+		wattroff(wi,COLOR_PAIR(4));
+		wattron(wi,COLOR_PAIR(2));
 		mvwprintw(wi,14,2,"WRONG CHOICES");
+		wattroff(wi,COLOR_PAIR(2));
 		mvwprintw(wi,6,2,"please enter letter:");
 		c=getch();
 		check=checkletter(c,word);
@@ -389,11 +419,17 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 			Display_man(wi,(*chances));
 			mvwprintw(wi,3,79,"%d",6-(*chances));
 			for (j=0;j<strlen(forming);j++)
+			{
+				wattron(wi,COLOR_PAIR(4));
 				mvwprintw(wi,18,3+j,"%c",forming[j]);
+				wattroff(wi,COLOR_PAIR(4));
+			}
 			for(i=0;i<strlen(wrong);i++)
 			{
+				wattron(wi,COLOR_PAIR(2));
 				mvwprintw(wi,14,2,"WRONG CHOICES");
 				mvwprintw(wi,15,(2+i),"%c",wrong[i]);
+				wattroff(wi,COLOR_PAIR(2));
 				mvwprintw(wi,2,79,"%d",(*score));
 			}
 		}
@@ -401,16 +437,24 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 		{
 			(*score)=(*score)+30;
 			Display_man(wi,(*chances));
+			wattron(wi,COLOR_PAIR(4));
 			mvwprintw(wi,17,2,"FORMING WORD");
+			wattroff(wi,COLOR_PAIR(4));
 			pos=searchpos(c,tempword);
 			forming[pos-1]=c;
 			forming[l+1]='\0';
 			for (j=0;j<strlen(forming);j++)
+			{
+				wattron(wi,COLOR_PAIR(4));
 				mvwprintw(wi,18,3+j,"%c",forming[j]);
+				wattroff(wi,COLOR_PAIR(4));
+			}
 			for(i=0;i<strlen(wrong);i++)
 			{
+				wattron(wi,COLOR_PAIR(2));
 				mvwprintw(wi,14,2,"WRONG CHOICES");
 				mvwprintw(wi,15,(2+i),"%c",wrong[i]);
+				wattroff(wi,COLOR_PAIR(2));
 			}
 		}
 		else if(check==27)
@@ -419,7 +463,11 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 		wrefresh(wi);
 
 		wclear(wi);
+		wattron(wi,COLOR_PAIR(1));
+		wattron(wi,A_REVERSE);
 		box(wi,0,0);
+		wattroff(wi,A_REVERSE);
+		wattroff(wi,COLOR_PAIR(1));
 	}
 	if((*chances)==6)
 	{		
@@ -519,8 +567,6 @@ node* delete_list(node *head)
 	}
 here:	return t1;
 }
-
-
 
 
 int chosen_yes_no()

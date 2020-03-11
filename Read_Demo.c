@@ -10,7 +10,7 @@ void Demo_game()
 	mvwprintw(w,1,1,"start");
 	mvwprintw(w,14,8,"press ESC to go back to the menu");
 	mvwprintw(w,2,1,"Hint:Name  a fruit that becomes yellow when it is ripen and is sour when it is raw");
-	mvwprintw(w,3,1,"*****");
+	mvwprintw(w,3,1,"_____");
 	mvwprintw(w,4,1,"Here answer is mango");
 	mvwprintw(w,5,1,"suppose user  enters 'N'");
 	game_zero(w);
