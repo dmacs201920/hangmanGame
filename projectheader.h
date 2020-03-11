@@ -1,4 +1,7 @@
 
+#include<ncurses.h>
+#include<string.h>
+#include<stdlib.h>
 //HANGMAN PROJECT/////
  struct player
 {char name[20];

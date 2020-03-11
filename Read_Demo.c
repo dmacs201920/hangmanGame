@@ -1,9 +1,4 @@
-
-#include<ncurses.h>
-#include<string.h>
-#include<stdlib.h>
 #include "projectheader.h"
-
 
 //TO show the demo of the game//
 void Demo_game()

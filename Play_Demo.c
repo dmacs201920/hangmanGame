@@ -1,7 +1,3 @@
-
-#include<ncurses.h>
-#include<string.h>
-#include<stdlib.h>
 #include "projectheader.h"
 
 //funcion to olay the demo
