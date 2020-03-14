@@ -26,14 +26,6 @@ typedef struct node
 	struct node *next;
 }node;
 
-/*typedef struct corr
-{
-	char let;
-	int position;
-	struct corr * next;
-} corr;
-
-*/
 //function to create/delele  a window and display the box
 WINDOW *create(int a,int b);
 WINDOW *deletee(WINDOW *w);
@@ -102,3 +94,10 @@ int searchpos(char c,char word[]);
 
 int chosen_yes_no();
 void print_yes_no(WINDOW *w,int h);
+
+int chosen_time();
+void print_time(WINDOW *w,int h);
+
+
+ int level_time();
+int track_time(char word[],char hint[],int *score,int *chances);

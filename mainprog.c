@@ -45,7 +45,6 @@ here:	while(r)
 					refresh();
 					wrefresh(w);
 				}
-				//getch();
 				delwin(w);
 				choice=chosen_choice();		
 				goto here;

@@ -6,12 +6,15 @@ void display_score()
 	WINDOW *w;
 	FILE *f;
 	play D;
+	char ch;
 	f=fopen("playerdetails","r");
 	if(f==NULL)
 	{
 		w=create(10,10);
+		wattron(w,COLOR_PAIR(2));
 		mvwprintw(w,18,19,"the file doesnt exist");
 		mvwprintw(w,19,2,"please play the game before asking for the data of players played before");
+		wattroff(w,COLOR_PAIR(2));
 		refresh();
 		wrefresh(w);
 		getch();
@@ -21,34 +24,47 @@ void display_score()
 	}
 	fread(&D,sizeof(D),1,f);
 	w=create(10,10);
-repeat:i=0;
-       j=0;
-       while(!feof(f)&&j<7)
-       {
-	       mvwprintw(w,(1+i),2,"name:");
-	       mvwprintw(w,(1+i),10,"%s",D.name);
-	       mvwprintw(w,(2+i),2,"age:");
-	       mvwprintw(w,(2+i),10,"%d",D.age);
-	       mvwprintw(w,(3+i),2,"Score:");
-	       mvwprintw(w,(3+i),10,"%d",D.score);
-	       i+=4;
-	       ++j;
-	       fread(&D,sizeof(D),1,f);
-	       mvwprintw(w,14,36,"press ENTER for the next batch");
-	       refresh();
-	       wrefresh(w);
-       }
-       getch();
+repeat:
+	i=0;
+	j=0;
+	wattron(w,COLOR_PAIR(4));
+	while(!feof(f)&&j<7)
+	{
+		mvwprintw(w,(1+i),2,"name:");
+		mvwprintw(w,(1+i),10,"%s",D.name);
+		mvwprintw(w,(2+i),2,"age:");
+		mvwprintw(w,(2+i),10,"%d",D.age);
+		mvwprintw(w,(3+i),2,"Score:");
+		mvwprintw(w,(3+i),10,"%d",D.score);
+		i+=4;
+		++j;
+		fread(&D,sizeof(D),1,f);
+		mvwprintw(w,14,36,"press ENTER for the next batch OR");
+		mvwprintw(w,16,36,"press ESC to come to the MENU");
+		refresh();
+		wrefresh(w);
+	}
+	wattroff(w,COLOR_PAIR(4));
+	ch=getch();
+	if(ch==27)
+	{		
+	wattron(w,COLOR_PAIR(2));
+		mvwprintw(w,15,36,"YOU CHOSE TO EXIT");
+	wattroff(w,COLOR_PAIR(2));
+		goto here;
+	}
 	wclear(w);
 	w=create(10,10);
-       if(feof(f))
-       {
-	       mvwprintw(w,15,36,"THE END OF THE DATA PRESENT");
-	       refresh();
-	       wrefresh(w);
-	       goto here;
-       }
-//	getch();
+	if(feof(f))
+	{
+	wattron(w,COLOR_PAIR(2));
+		mvwprintw(w,15,36,"THE END OF THE DATA PRESENT");
+	wattroff(w,COLOR_PAIR(2));
+		refresh();
+		wrefresh(w);
+		goto here;
+	}
+	//	getch();
 	goto repeat;
 here:
 	delwin(w);

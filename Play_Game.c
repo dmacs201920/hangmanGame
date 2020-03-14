@@ -9,15 +9,17 @@ int play_game()
 	int flag=0,score=0,i=1,chances=0,c=0;
 	int x;
 	int it=0;
-	node *head=NULL;
-	
+    int j,k,l;
+	node *head=NULL;	
 	node *t;
 the:
 	w=create(10,10);
 	echo();
+	wattron(w,COLOR_PAIR(3));
 	mvwprintw(w,2+it,2,"PLEASE ENTER ONE OF THE NUMBERS GIVEN ONLY FROM THE LIST:::");
 	mvwprintw(w,3+it,25,"0 or 1 or 3 or 4 or 5 or 7 or 9       ");
 	wscanw(w,"%d",&c);
+	wattroff(w,COLOR_PAIR(3));	
 	if(c==0 || c==1 || c==3 || c==4 || c==5 ||c==7 ||c==9 )
 		goto next;
 	else
@@ -40,12 +42,12 @@ next:
 			if(f==NULL)
 				exit(1);
 			srand(60*c);
-			for(int k=0;k<40;k++)
+			for(k=0;k<40;k++)
 			{
 				x=Rand(0,15);
 				head=linklist(head,x,f);
 			}
-			for (int j=1;j<=7;j++)
+			for (j=1;j<=7;j++)
 			{
 				t=search(head,j);
 				strcpy(word,t->word);
@@ -83,12 +85,12 @@ next:
 			if(f==NULL)
 				exit(1);
 			srand(60*c);
-			for(int k=0;k<40;k++)
+			for(k=0;k<40;k++)
 			{
 				x=Rand(0,15);
 				head=linklist(head,x,f);
 			}
-			for (int j=1;j<=7;j++)
+			for (j=1;j<=7;j++)
 			{
 				t=search(head,j);
 				strcpy(word,t->word);
@@ -125,12 +127,12 @@ next:
 			if(f==NULL)
 				exit(1);
 			srand(60*c);
-			for(int k=0;k<40;k++)
+			for(k=0;k<40;k++)
 			{
 				x=Rand(0,15);
 				head=linklist(head,x,f);
 			}
-			for (int j=1;j<=7;j++)
+			for (j=1;j<=7;j++)
 			{
 				t=search(head,j);
 				strcpy(word,t->word);
@@ -167,12 +169,12 @@ next:
 			if(f==NULL)
 				exit(1);
 			srand(60*c);
-			for(int k=0;k<40;k++)
+			for(k=0;k<40;k++)
 			{
 				x=Rand(0,15);
 				head=linklist(head,x,f);
 			}
-			for (int j=1;j<=7;j++)
+			for (j=1;j<=7;j++)
 			{
 				t=search(head,j);
 				strcpy(word,t->word);
@@ -190,18 +192,85 @@ next:
 					return 27;
 				}
 			}
-			playerdetails(score);
 			if(flag==0)
 			{
 				levelcheck(0);
-				return 0;
+                return 0;
+            }
+            else
+            {
+                levelcheck(4);
+                w=create(10,10);
+                mvwprintw(w,15,15,"WELCOME TO THE TIME WHEN YOU HAVE A WAY TO INCREASE THE POINTS IN HUNDREDS");
+                getch();
+                refresh();
+                wrefresh(w);
+                l=level_time();
+                if(l==1)
+                {
+                    playerdetails(score);
+                    wclear(w);
+                    delwin(w);
+                    goto END;
+                }   
+                else if(l==2)
+                {
+                    ++i;
+                    wclear(w);
+                    delwin(w);
+                }
+            }
+            fclose(f);
+            head=delete_list(head);
+            goto the;
+            break;
+        case 5:
+			head=NULL;
+			f=fopen("levelhard.txt","r");
+            chances=0;
+			if(f==NULL)
+				exit(1);
+			srand(60*c);
+			for(k=0;k<40;k++)
+			{
+				x=Rand(0,15);
+				head=linklist(head,x,f);
 			}
+			for (j=1;j<=7;j++)
+			{
+				t=search(head,j);
+				strcpy(word,t->word);
+				strcpy(hint,t->hint);
+
+				flag=track_time(word,hint,&score,&chances);
+				if(flag==0)
+				{
+					fclose(f);
+					break;
+				}				
+				else if(flag==27)
+				{
+					fclose(f);
+					return 27;
+				}					
+			}
+			if(flag==0)
+			{
+				levelcheck(0);
+				playerdetails(score);
+				return 0;
+			}		
 			else
-				levelcheck(4);
+				levelcheck(5);
+			++i;
 			fclose(f);
 			head=delete_list(head);
-			return 1;
-			break;
-	}
-	delete_list(head);
+            return 1;
+            break;
+    }
+END:
+    delete_list(head);
 }
+
+
+

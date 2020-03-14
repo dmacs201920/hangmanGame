@@ -12,7 +12,7 @@ int play_demo()
 	char tempword[20];
 	char forming[20];
 	char word[10]="school";
-	char hint[100]="place where students go and study";
+    char hint[100]="place where students go and study";
 	l=strlen(word);
 	strcpy(tempword,word);	
 
@@ -103,7 +103,7 @@ int play_demo()
 			wattroff(wi,COLOR_PAIR(2));
 		}
 		else if(check==27)
-		{
+	{
 			refresh();
 			wrefresh(wi);
 			delwin(wi);

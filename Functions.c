@@ -22,7 +22,6 @@ WINDOW *create(int a,int b)
 	wattron(w,COLOR_PAIR(1));
 	wattron(w,A_REVERSE);
 
-//	wborder(w,'|','|','-','-','+','+','+','+');
 	box(w,0,0);
 
 	mvwprintw(w,1,36,"HANGMAN!!!");
@@ -210,12 +209,16 @@ void print_menu(WINDOW *w,int h)
 		sprintf(item,"%s",choices[i]);
 		if(h==i+1)
 		{
-			wattron(w,A_STANDOUT);
+			wattron(w,A_STANDOUT|COLOR_PAIR(3));
 			mvwprintw(w,i+1,x,"%s",choices[i]);
-			wattroff(w,A_STANDOUT);
+			wattroff(w,A_STANDOUT|COLOR_PAIR(3));
 		}
 		else
+		{
+			wattron(w,COLOR_PAIR(3));
 			mvwprintw(w,i+1,x,"%s",choices[i]);
+			wattroff(w,COLOR_PAIR(3));
+		}
 	}
 	refresh();
 	wrefresh(w);
@@ -277,28 +280,40 @@ void levelcheck(int level)
 {
 	WINDOW *w;
 	w=create(10,10);
-	if(level==4)
-	{  	wattron(w,COLOR_PAIR(4));
-		mvwprintw(w,10,33,"\\");
-		mvwprintw(w,10,34,"O/");
-		mvwprintw(w,11,34,"|");
-		mvwprintw(w,12,35,"\\ ");
-		mvwprintw(w,12,33,"/");
-		mvwprintw(w,14,30,"Hangman is saved ");
-		mvwprintw(w,15,30,"MISSION COMPLETED");
-		mvwprintw(w,16,30,"CONGRATULATIONS...");
-		wattroff(w,COLOR_PAIR(4));
-	}
-	else if(level==1 || level==2 || level==3)
-	{mvwprintw(w,23,15,"Conratulations... Level");
-		mvwprintw(w,23,39,"%d",level);
-		mvwprintw(w,23,42,"Completed");
-	} 
-	else if(level==0)
-	{
-		Display_man(w,6);
-		mvwprintw(w,13,20,"SORRY!!!!!!!!....... GAME OVER!!!");
-	}
+    switch(level)
+    {
+        case 4:
+        case 5:
+            wattron(w,COLOR_PAIR(4));
+            mvwprintw(w,10,33,"\\");
+            mvwprintw(w,10,34,"O/");
+            mvwprintw(w,11,34,"|");
+            mvwprintw(w,12,35,"\\ ");
+            mvwprintw(w,12,33,"/");
+            mvwprintw(w,14,30,"Hangman is saved ");
+            mvwprintw(w,16,30,"CONGRATULATIONS...");
+            if(level==4)
+                mvwprintw(w,18,30,"PLEASE WAIT FOR THE FINAL MISSION");
+            else if(level == 5)
+                mvwprintw(w,18,33,"MISSION COMPLETED!!!!!!!");
+            wattroff(w,COLOR_PAIR(4));
+            break;
+        case 1:
+        case 2:
+        case 3:
+            wattron(w,COLOR_PAIR(4));
+            mvwprintw(w,23,15,"Conratulations... Level");
+            mvwprintw(w,23,39,"%d",level);
+            mvwprintw(w,23,42,"Completed");
+            wattroff(w,COLOR_PAIR(4));
+            break;
+        case 0:
+            wattron(w,COLOR_PAIR(2));
+            Display_man(w,6);
+            mvwprintw(w,13,20,"SORRY!!!!!!!!....... GAME OVER!!!");
+            wattroff(w,COLOR_PAIR(2));
+    }
+
 	refresh();
 	wrefresh(w);
 	getch();
@@ -368,17 +383,28 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 	WINDOW *wi;
 	wi=create(10,10);
 	mvwprintw(wi,1,36,"HANGMAN!!!");
+	wattron(wi,COLOR_PAIR(3));
 	mvwprintw(wi,1,70,"LEVEL::");
 	mvwprintw(wi,1,79,"%d",level);
+	wattroff(wi,COLOR_PAIR(3));
+	wattron(wi,COLOR_PAIR(4));
 	mvwprintw(wi,2,70,"SCORE::");
 	mvwprintw(wi,2,79,"%d",(*score));
+	wattroff(wi,COLOR_PAIR(4));
+	wattron(wi,COLOR_PAIR(3));
 	mvwprintw(wi,4,2,"HINT::");
 	mvwprintw(wi,4,8,"%s",hint);
+	wattroff(wi,COLOR_PAIR(3));
+	wattron(wi,COLOR_PAIR(2));
 	mvwprintw(wi,3,79,"%d",6-(*chances));
 	mvwprintw(wi,3,63,"CHANCES LEFT::");
+	wattroff(wi,COLOR_PAIR(2));
+	
+	wattron(wi,COLOR_PAIR(4));
 	for (i=0;i<l;i++)
 		forming[i]='_';
 	forming[i+1]='\0';
+	wattroff(wi,COLOR_PAIR(4));
 
 		
 	mvwprintw(wi,6,2,"please enter letter:");
@@ -388,19 +414,23 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 	while((*chances)!=6 && strlen(word)!=0)
 	{
 		mvwprintw(wi,1,36,"HANGMAN!!!");
+		wattron(wi,COLOR_PAIR(3));
 		mvwprintw(wi,1,70,"LEVEL::");
 		mvwprintw(wi,1,79,"%d",level);
+		wattroff(wi,COLOR_PAIR(3));
 		wattron(wi,COLOR_PAIR(4));
 		mvwprintw(wi,2,70,"SCORE::");
 		mvwprintw(wi,2,79,"%d",(*score));
 		wattroff(wi,COLOR_PAIR(4));
+		wattron(wi,COLOR_PAIR(3));
 		mvwprintw(wi,4,2,"HINT::");
 		mvwprintw(wi,4,8,"%s",hint);
-	wattron(wi,COLOR_PAIR(3));
+		wattroff(wi,COLOR_PAIR(3));
+		wattron(wi,COLOR_PAIR(2));
 		mvwprintw(wi,3,79,"%d",6-(*chances));
 		mvwprintw(wi,3,63,"CHANCES LEFT::");
-	wattroff(wi,COLOR_PAIR(3));
-	wattron(wi,COLOR_PAIR(4));
+		wattroff(wi,COLOR_PAIR(2));
+		wattron(wi,COLOR_PAIR(4));
 		mvwprintw(wi,17,2,"FORMING WORD");
 		wattroff(wi,COLOR_PAIR(4));
 		wattron(wi,COLOR_PAIR(2));
@@ -417,7 +447,9 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 			wrong[d+1]='\0';
 			++d;
 			Display_man(wi,(*chances));
+			wattron(wi,COLOR_PAIR(2));
 			mvwprintw(wi,3,79,"%d",6-(*chances));
+			wattroff(wi,COLOR_PAIR(2));
 			for (j=0;j<strlen(forming);j++)
 			{
 				wattron(wi,COLOR_PAIR(4));
@@ -430,7 +462,9 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 				mvwprintw(wi,14,2,"WRONG CHOICES");
 				mvwprintw(wi,15,(2+i),"%c",wrong[i]);
 				wattroff(wi,COLOR_PAIR(2));
+				wattron(wi,COLOR_PAIR(4));
 				mvwprintw(wi,2,79,"%d",(*score));
+				wattroff(wi,COLOR_PAIR(4));
 			}
 		}
 		else if(check!=0 && check!=27)
@@ -616,15 +650,16 @@ void print_yes_no(WINDOW *w,int h)
 	char *item=malloc(200);
 	for(i=0;i<yes;i++)
 	{
-                
+                wattron(w,COLOR_PAIR(2));
 		mvwprintw(w,15,20,"!!ARE YOU SURE YOU WANT TO EXIT THE GAME?\n");
 
 		sprintf(item,"%s",yes_no[i]);
+		wattroff(w,COLOR_PAIR(2));
 		if(h==i+1)
 		{
-			wattron(w,A_STANDOUT);
+			wattron(w,A_STANDOUT|COLOR_PAIR(2));
 			mvwprintw(w,i+18,x,"%s",yes_no[i]);
-			wattroff(w,A_STANDOUT);
+			wattroff(w,A_STANDOUT|COLOR_PAIR(2));
 		}
 		else
 			mvwprintw(w,i+18,x,"%s",yes_no[i]);
