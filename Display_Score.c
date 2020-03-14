@@ -41,30 +41,31 @@ repeat:
 		fread(&D,sizeof(D),1,f);
 		mvwprintw(w,14,36,"press ENTER for the next batch OR");
 		mvwprintw(w,16,36,"press ESC to come to the MENU");
-		refresh();
-		wrefresh(w);
+        refresh();
+        wrefresh(w);
+    }
+    wattroff(w,COLOR_PAIR(4));
+    ch=getch();
+    if(ch==27)
+    {		
+        wattron(w,COLOR_PAIR(2));
+        mvwprintw(w,15,36,"YOU CHOSE TO EXIT");
+        wattroff(w,COLOR_PAIR(2));
+        refresh();
+        wrefresh(w);
+        goto here;
+    }
+    wclear(w);
+    w=create(10,10);
+    if(feof(f))
+    {
+        wattron(w,COLOR_PAIR(2));
+        mvwprintw(w,15,36,"THE END OF THE DATA PRESENT");
+        wattroff(w,COLOR_PAIR(2));
+        refresh();
+        wrefresh(w);
+        goto here;
 	}
-	wattroff(w,COLOR_PAIR(4));
-	ch=getch();
-	if(ch==27)
-	{		
-	wattron(w,COLOR_PAIR(2));
-		mvwprintw(w,15,36,"YOU CHOSE TO EXIT");
-	wattroff(w,COLOR_PAIR(2));
-		goto here;
-	}
-	wclear(w);
-	w=create(10,10);
-	if(feof(f))
-	{
-	wattron(w,COLOR_PAIR(2));
-		mvwprintw(w,15,36,"THE END OF THE DATA PRESENT");
-	wattroff(w,COLOR_PAIR(2));
-		refresh();
-		wrefresh(w);
-		goto here;
-	}
-	//	getch();
 	goto repeat;
 here:
 	delwin(w);

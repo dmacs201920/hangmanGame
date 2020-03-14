@@ -38,7 +38,11 @@ int play_demo()
 	wrefresh(wi);
 	while(chances!=6 && strlen(word)!=0)
 	{
+	wattron(wi,COLOR_PAIR(1));
+	wattron(wi,A_REVERSE);
 		mvwprintw(wi,1,36,"HANGMAN!!!");
+	wattroff(wi,A_REVERSE);
+	wattroff(wi,COLOR_PAIR(1));
 		wattron(wi,COLOR_PAIR(4));
 		mvwprintw(wi,2,70,"SCORE::");
 		mvwprintw(wi,2,79,"%d",score);
