@@ -50,7 +50,6 @@ here:	while(r)
                     break;
                 case 4://if the user wants to see the previous players details 
                     display_score();
-                    getch();
                     choice=chosen_choice();			
                     goto here;
                     break;
