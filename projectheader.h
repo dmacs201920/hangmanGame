@@ -1,30 +1,33 @@
-
 #include<ncurses.h>
 #include<string.h>
 #include<stdlib.h>
 //HANGMAN PROJECT/////
- struct player
-{char name[20];
-	int age;
-	int score;
-	struct player *next;
+struct pl
+{
+    char name[20];
+    int age;
+    int score;
+    struct pl *next;
 };
-typedef struct player player;
+typedef struct pl player;
 
 
-typedef struct play
-{char name[20];
- int age;
- int score;
-} play;
+struct p
+{
+    char name[20];
+    int age;
+    int score;
+};
 
+typedef struct p play;
 
-typedef struct node
+struct n
 {  
-	char hint[150],word[20];
-	int num;
-	struct node *next;
-}node;
+    char hint[150],word[20];
+    int num;
+    struct n *next;
+};
+typedef struct n node;
 
 //function to create/delele  a window and display the box
 WINDOW *create(int a,int b);
@@ -66,7 +69,7 @@ int chosen_choice();
 //funcion to keep track of the entered letter and keep track of the number of mistakes made
 int track(char s[],char hint[],int *score,int *chances,int level);
 
-	
+
 //function to get the player to go to the different levels
 int play_game();
 
@@ -92,12 +95,18 @@ int play_demo();
 //function to search the positon of the character in the word and return the value of the position
 int searchpos(char c,char word[]);
 
+//functions to print the option to ask the user if he/she really wants to quit
 int chosen_yes_no();
 void print_yes_no(WINDOW *w,int h);
 
+
+//function to ask the user if he really wants to go into the game
 int chosen_time();
+//function to start the last stage of the game 
 void print_time(WINDOW *w,int h);
 
 
- int level_time();
+//function to start the last stage of the game
+int level_time();
+//funcion to keep track of the entered letter and keep track of the number of mistakes made for the level time trial
 int track_time(char word[],char hint[],int *score,int *chances);
