@@ -154,7 +154,7 @@ void Display_man(WINDOW *w,int level)
 void start_game()
 { 
     WINDOW *w;
-    int i=10;
+    int i=15;
 HERE:
     w=create(10,10);
 
