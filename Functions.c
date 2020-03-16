@@ -17,7 +17,6 @@ WINDOW *create(int a,int b)
     getmaxyx(stdscr,row,col);
     w=newwin((row*3)/4,(col*3)/4,a,b);
     start_color();
-
     init_pair(1,COLOR_BLUE,COLOR_BLACK);
     init_pair(2,COLOR_RED,COLOR_BLACK);
     init_pair(3,COLOR_YELLOW,COLOR_BLACK);
