@@ -14,6 +14,9 @@
 
  Requirements:
         ncurses
+========================================================================================================================
+ To run the program the user needs to use the makefile that has been created.
+ the name of the executable is Exe
 =========================================================================================================================
  Description of the game:
         The game has built in a basic way with 5 levels.
@@ -25,7 +28,7 @@
 ==========================================================================================================================
  Description of the Files that are there:
         mainprog.c:
-                    This file containg a switch case which calls the different options that have been chosen by the user.   
+                    This file calls the different options that have been chosen by the user.   
         Functions.c
                     This file contains some functions that are frequently called in the other files.
         ReadDemo.c
