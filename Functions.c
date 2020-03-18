@@ -371,7 +371,7 @@ void levelcheck(int level)
                 wrefresh(w);
                 for(int i=0;i<10;i++)
                 {
-                    if(i%2==0)
+                    if(i%2)
                         mvwprintw(w,19,38,"...");
                     else 
                         mvwprintw(w,19,38,"......");

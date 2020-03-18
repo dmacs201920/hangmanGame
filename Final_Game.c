@@ -175,7 +175,7 @@ int track_time(char word[],char hint[],int *score,int *chances)
     mvwprintw(wi,4,8,"%s",hint);
     wattroff(wi,COLOR_PAIR(3));
     wattron(wi,COLOR_PAIR(2));
-    mvwprintw(wi,1,69,"TIME_TRIAL");
+    mvwprintw(wi,1,69,"FINAL");
     mvwprintw(wi,3,79,"%d",6-(*chances));
     mvwprintw(wi,3,63,"CHANCES LEFT::");
     wattroff(wi,COLOR_PAIR(2));
