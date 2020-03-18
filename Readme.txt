@@ -40,4 +40,4 @@
                     Here the score increases by 100 points and for a wrong choice, decreases by 50.
         DisplayScore.c
                     This is the function which will display the score of the users who have played the game in the past.
-
+===========================================================================================================================
