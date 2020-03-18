@@ -1,19 +1,15 @@
 # hangmanGame.3bsc
 A novice implementation of hangman Game
-===========================================================================================================================
+
         HANGMAN GAME
-============================================================================================================================
+
  Written by :Anirudh Narayan Pradhan(173232) and Sushil Chhetri(173247)
 ===========================================================================================================================
  Requirements:
             ncurses
 ===========================================================================================================================
-features implemented:
-            file handling 
-            link list implementation of the list data structure
-            random variable generator
-            pseudo window implementation using ncurses
-            usuage of keyboard keys like arrow up,down,etc.
+Features Implemented:
+            file handling,link list implementation of the list data structure,random variable generator,pseudo window implementation using ncurses,usuage of keyboard keys like arrow up,down,etc.
 ===========================================================================================================================
  To run the program type make which will generate the executable Exe.
 ============================================================================================================================
