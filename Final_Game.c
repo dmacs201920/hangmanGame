@@ -13,8 +13,9 @@ void print_time(WINDOW *w,int h)
     char *item=malloc(200);
     for(i=0;i<yes;i++)
     {
+        wattron(w,COLOR_PAIR(2));
         mvwprintw(w,14,20,"This level can decrease your score drastically");
-        mvwprintw(w,15,20,"WOULD YOU LIKE TO CONTINUE?\n");
+        mvwprintw(w,15,20,"WOULD YOU LIKE TO CONTINUE?");
 
         sprintf(item,"%s",yes_no[i]);
         if(h==i+1)
@@ -25,6 +26,7 @@ void print_time(WINDOW *w,int h)
         }
         else
             mvwprintw(w,i+18,x,"%s",yes_no[i]);
+        wattroff(w,COLOR_PAIR(2));
     }
     refresh();
     wrefresh(w);
@@ -114,6 +116,7 @@ next1:
         return x;
 
 next:
+    wattron(w,COLOR_PAIR(4));
     w=create(10,10);
     mvwprintw(w,14,15,"WELCOME TO THE FINAL LEVEL");     
     mvwprintw(w,17,16,"%d  %d  %d  %d  %d  %d %d",j+1,j,j+3,j,j+5,j,j+7);
@@ -122,6 +125,7 @@ next:
     mvwprintw(w,11,39,"|");
     mvwprintw(w,12,40,"\\ ");
     mvwprintw(w,12,38,"/");
+    wattroff(w,COLOR_PAIR(4));
     j--; 
     refresh();
     wrefresh(w);
@@ -131,7 +135,9 @@ next:
     if(j>0)
         goto next;
     w=create(10,10);
+    wattron(w,COLOR_PAIR(3));
     mvwprintw(w,15,40,"::::::All THE BEST::::::::::");
+    wattroff(w,COLOR_PAIR(3));
     wrefresh(w);
     wclear(w);
     getch();

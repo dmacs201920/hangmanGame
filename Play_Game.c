@@ -7,7 +7,7 @@ int play_game()
     WINDOW *w;
     FILE *f;
     char word[20],hint[200];
-    int flag=0,score=0,i=1,chances=0,c=0;
+    int flag=0,score=0,i=4,chances=0,c=0;
     int x;
     int it=0;
     int j,k,l;
@@ -142,7 +142,7 @@ next:
                 strcpy(hint,t->hint);
                 word[strlen(t->word)+1]='\0';
 
-                flag=track(word,hint,&score,&chances,2);
+                flag=track(word,hint,&score,&chances,3);
                 if(flag==0)
                 {
                     fclose(f);
@@ -185,7 +185,7 @@ next:
                 strcpy(hint,t->hint);
                 word[strlen(t->word)+1]='\0';
 
-                flag=track(word,hint,&score,&chances,3);
+                flag=track(word,hint,&score,&chances,4);
                 if(flag==0)
                 {
                     fclose(f);
@@ -206,10 +206,12 @@ next:
             {
                 levelcheck(4);
                 w=create(10,10);
-                mvwprintw(w,15,15,"WELCOME TO THE TIME WHEN YOU HAVE A WAY TO INCREASE THE POINTS IN HUNDREDS");
-                getch();
+                wattron(w,COLOR_PAIR(4));
+                mvwprintw(w,5,15,"WELCOME TO THE TIME WHEN YOU HAVE A WAY TO INCREASE THE POINTS IN HUNDREDS");
+                wattroff(w,COLOR_PAIR(4));
                 refresh();
                 wrefresh(w);
+                getch();
                 l=level_time();
                 if(l==1)
                 {
@@ -220,7 +222,7 @@ next:
                 }   
                 else if(l==2)
                 {
-                    ++i;
+                    i=5;
                     wclear(w);
                     delwin(w);
                 }
@@ -231,7 +233,7 @@ next:
             break;
         case 5:
             head=NULL;
-            f=fopen("levelhard.txt","r");
+            f=fopen("leveltime.txt","r");
             chances=0;
             if(f==NULL)
                 exit(1);
@@ -257,6 +259,7 @@ next:
                 else if(flag==27)
                 {
                     fclose(f);
+                    head=delete_list(head);
                     return 27;
                 }					
             }
@@ -264,6 +267,7 @@ next:
             {
                 levelcheck(0);
                 playerdetails(score);
+                head=delete_list(head);
                 return 0;
             }		
             else

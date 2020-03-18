@@ -153,8 +153,7 @@ void Display_man(WINDOW *w,int level)
 void start_game()
 { 
     WINDOW *w;
-    int i=15;
-HERE:
+    int i=10;
     w=create(10,10);
 
     wattron(w,COLOR_PAIR(2));
@@ -170,28 +169,76 @@ HERE:
 
     wattron(w,COLOR_PAIR(3));
     mvwprintw(w,7,2,"Hangman welcomes you to the game");
-    mvwprintw(w,9,2,"The game 'HANGMAN' is a word oriented game.");
-    mvwprintw(w,10,2," It consists of a set of questions in each level.");
-    mvwprintw(w,12,2,"The player has to guess the answer and  enter the answer letter by letter.");
-    mvwprintw(w,13,2,"Each correct  entry of a letter would add up to the score by 30");
-    mvwprintw(w,14,2,"a wrong guess would decrease the score by 10.");
-    mvwprintw(w,15,2,"The player is given maximum of six chances for each level.");
-    mvwprintw(w,19,15,"PLEASE WAIT FOR     SECONDS");
-    wattroff(w,COLOR_PAIR(3));
-    wattron(w,COLOR_PAIR(2));
-    mvwprintw(w,19,32,"%d",i);
-    wattroff(w,COLOR_PAIR(2));
-    wattron(w,COLOR_PAIR(3));
-    --i;
-    mvwprintw(w,20,15,"LOADING.....");
     refresh();
     wrefresh(w);
-    wclear(w);
+    sleep(2);
     wattroff(w,COLOR_PAIR(3));
+    wattron(w,COLOR_PAIR(4));
+    mvwprintw(w,8,40,"GENERAL RULES");
+    refresh();
+    wrefresh(w);
+    sleep(1);
+    wattroff(w,COLOR_PAIR(4));
+    wattron(w,COLOR_PAIR(3));
+    mvwprintw(w,9,2,"The game 'HANGMAN' is a word oriented game.");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    mvwprintw(w,10,2,"It consists of a set of questions in each level.");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    mvwprintw(w,11,2,"The player has to guess the answer and  enter the answer letter by letter.");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    mvwprintw(w,12,2,"Each correct  entry of a letter would add up to the score by 30");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    mvwprintw(w,13,2,"a wrong guess would decrease the score by 10.");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    mvwprintw(w,14,2,"The player is given maximum of six chances for each level.");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    wattroff(w,COLOR_PAIR(3));
+HERE:
+    wattron(w,COLOR_PAIR(4));
+    mvwprintw(w,20,8,"LOADING");
+    wattroff(w,COLOR_PAIR(4));
+    wattron(w,COLOR_PAIR(3));
+    if(i%2)
+        mvwprintw(w,20,16,".....");
+    else 
+        mvwprintw(w,20,16,"     ");
+    refresh();
+    wrefresh(w);    
+    wattroff(w,COLOR_PAIR(3));
+    --i;
     sleep (1);
-    delwin(w);
-    if(i!=-1)
+    if(i>-1)
         goto HERE;
+    wattron(w,COLOR_PAIR(1));
+    mvwprintw(w,20,16,"________________");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    mvwprintw(w,20,16,"_________________________________");
+    refresh();
+    wrefresh(w);
+    sleep(2);
+    mvwprintw(w,20,16,"________________________________________________________");
+    refresh();
+    wrefresh(w);
+    sleep(1);
+    wattroff(w,COLOR_PAIR(3));
+    delwin(w);
+
+
+
     w=create(10,10);
 
     wattron(w,COLOR_PAIR(3));
@@ -302,8 +349,8 @@ void levelcheck(int level)
     w=create(10,10);
     switch(level)
     {
-        case 4:
         case 5:
+        case 4:
             wattron(w,COLOR_PAIR(4));
             mvwprintw(w,10,33,"\\");
             mvwprintw(w,10,34,"O/");
