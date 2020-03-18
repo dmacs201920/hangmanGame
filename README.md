@@ -14,13 +14,20 @@ A novice implementation of hangman Game
         ||                                                       $$                                      ||
 ============================================================================================================================
  Written by :Anirudh Narayan Pradhan(173232) and Sushil Chhetri(173247)
-
+===========================================================================================================================
  Requirements:
-        ncurses
-========================================================================================================================
+            ncurses
+===========================================================================================================================
+features implemented:
+            file handling 
+            link list implementation of the list data structure
+            random variable generator
+            pseudo window implementation using ncurses
+            usuage of keyboard keys like arrow up,down,etc.
+===========================================================================================================================
  To run the program the user needs to use the makefile that has been created.
- the name of the executable is Exe
-=========================================================================================================================
+    The name of the executable is Exe.
+============================================================================================================================
  Description of the game:
         The game has built in a basic way with 5 levels.
         Using the header ncurses.h we have tred and worked in a window that has been created by us on top of the standard output window.
@@ -28,7 +35,7 @@ A novice implementation of hangman Game
         The words and the hints are taken at random from the respective text files that have been fed by the programmer.
         There is a read demo and also a play demo available to help the user get a hang of the game hangman.
         At some places the user has to wait for sometime as we have used the function sleep for back counting.
-==========================================================================================================================
+============================================================================================================================
  Description of the Files that are there:
         mainprog.c:
                     This file calls the different options that have been chosen by the user.   
