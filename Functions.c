@@ -361,8 +361,14 @@ void levelcheck(int level)
             mvwprintw(w,16,30,"CONGRATULATIONS...");
             if(level==4)
             {
+                wattron(w,COLOR_PAIR(2));
                 mvwprintw(w,18,30,"PLEASE WAIT FOR THE FINAL MISSION");
+                wattroff(w,COLOR_PAIR(2));
+                wattron(w,COLOR_PAIR(4));
                 mvwprintw(w,19,30,"LOADING");
+                wattroff(w,COLOR_PAIR(4));
+                refresh();
+                wrefresh(w);
                 for(int i=0;i<10;i++)
                 {
                     if(i%2==0)
@@ -370,10 +376,19 @@ void levelcheck(int level)
                     else 
                         mvwprintw(w,19,38,"......");
                     sleep(1);
+                    refresh();
+                    wrefresh(w);
                 }
             }
             else if(level == 5)
+            {
+                wattron(w,COLOR_PAIR(4));
                 mvwprintw(w,18,33,"MISSION COMPLETED!!!!!!!");
+                wattroff(w,COLOR_PAIR(4));
+                refresh();
+                wrefresh(w);
+                getch();
+            }
             wattroff(w,COLOR_PAIR(4));
             break;
         case 1:
@@ -394,7 +409,6 @@ void levelcheck(int level)
 
     refresh();
     wrefresh(w);
-    getch();
     delwin(w);
 }
 
@@ -411,7 +425,7 @@ node *search(node* head,int x)
     }
 }
 
-//function to create a linked list for the storae of the number,hint anf the word in random order 
+//function to create a linked list for the storage of the number,hint and the word in random order 
 //witten by Sushil 173247
 node* linklist(node *head,int x,FILE *f)
 {
@@ -659,7 +673,7 @@ int checkletter(char c,char s[])
 
 
 //function to search the positon of the character in the word and return the value of the position
-//written by sushil 173247
+//written by Anirudh 173232
 int searchpos(char c,char word[])
 {
     for (int i=0;i<strlen(word);i++)

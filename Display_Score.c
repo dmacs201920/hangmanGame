@@ -159,7 +159,6 @@ void playerdetails(int s)
     echo();
 enter:
     w=create(10,10);
-    game_over(w);	
     mvwprintw(w,2,2,"enter the details as asked");
     mvwprintw(w,3,2,"Name:");
     wgetstr(w,p.name);
@@ -168,6 +167,8 @@ enter:
     if(p.age<=0)
     {
         mvwprintw(w,5,2,"the age is invalid please enter the details again");
+        refresh();
+        wrefresh(w);
         goto enter;
     }
     p.score=s;

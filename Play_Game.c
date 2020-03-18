@@ -7,7 +7,7 @@ int play_game()
     WINDOW *w;
     FILE *f;
     char word[20],hint[200];
-    int flag=0,score=0,i=4,chances=0,c=0;
+    int flag=0,score=0,i=1,chances=0,c=0;
     int x;
     int it=0;
     int j,k,l;
@@ -200,6 +200,7 @@ next:
             if(flag==0)
             {
                 levelcheck(0);
+                head=delete_list(head);
                 return 0;
             }
             else
@@ -208,10 +209,10 @@ next:
                 w=create(10,10);
                 wattron(w,COLOR_PAIR(4));
                 mvwprintw(w,5,15,"WELCOME TO THE TIME WHEN YOU HAVE A WAY TO INCREASE THE POINTS IN HUNDREDS");
-                wattroff(w,COLOR_PAIR(4));
                 refresh();
                 wrefresh(w);
                 getch();
+                wattroff(w,COLOR_PAIR(4));
                 l=level_time();
                 if(l==1)
                 {
@@ -223,6 +224,7 @@ next:
                 else if(l==2)
                 {
                     i=5;
+                    head=delete_list(head);
                     wclear(w);
                     delwin(w);
                 }
@@ -272,6 +274,8 @@ next:
             }		
             else
                 levelcheck(5);
+                playerdetails(score);
+                head=delete_list(head);
             ++i;
             fclose(f);
             head=delete_list(head);

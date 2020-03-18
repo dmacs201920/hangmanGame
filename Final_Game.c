@@ -97,7 +97,7 @@ next1:
     w=create(10,10);
     mvwprintw(w,15,35,": GENERAL RULES :");
     mvwprintw(w,17,25,"WRONG CHOICE          RIGHT CHOICE ");
-    mvwprintw(w,19,25,"SCORE=SCORE-100       SCORE=SCORE+100 ");
+    mvwprintw(w,19,25,"SCORE=SCORE-50       SCORE=SCORE+100 ");
     mvwprintw(w,23,20,"PLEASE WAIT");
     if(t%2)
         mvwprintw(w,23,32,"....");
@@ -136,12 +136,13 @@ next:
         goto next;
     w=create(10,10);
     wattron(w,COLOR_PAIR(3));
-    mvwprintw(w,15,40,"::::::All THE BEST::::::::::");
+    mvwprintw(w,15,30,"::::::All THE BEST::::::::::");
     wattroff(w,COLOR_PAIR(3));
     wrefresh(w);
     wclear(w);
     getch();
     delwin(w);
+    return x;
 }
 
 
