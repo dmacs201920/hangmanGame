@@ -25,23 +25,5 @@ features implemented:
         There is a read demo and also a play demo available to help the user get a hang of the game hangman.
         At some places the user has to wait for sometime as we have used the function sleep for back counting.
 ============================================================================================================================
- Description of the Files:
-       1:mainprog.c:
-                    This file calls the different options that have been chosen by the user.
-       2:Functions.c
-                    This file contains some functions that are frequently called in the other files.
-       3:ReadDemo.c
-                    This file contains the description which the user will read if the user chooses the first option.
-       4:PlayDemo.c
-                    This file contains a basic game which the user can play as a trial.
-       5:PlayGame.c
-                    This file contains a switch case that makes the user play the different levels of the game.
-                    This is the file which increases the levels and takes the different files of the different levels.
-       6:FinalGame.c:
-                    This is a variation of the game which emerges in the final level were the user can decide if the user wants to play this level or not.
-                    Here the score increases by 100 points and for a wrong choice, decreases by 50.
-       7:DisplayScore.c
-                    This is the function which will display the score of the users who have played the game in the past.
-       8:projectheader.h
-                    This is the header file for the project.
+ Description of the Files:mainprog.c is the main file that calls the different options that have been chosen by the user.Functions.c is the file containing some functions that are frequently called in the other files.Read_Demo.c is the file containingthe description which the user will read if the user chooses the first option.Play_Demo.c contains a basic game which the user can play as a trial.Play_Game.c contains a switch case that makes the user play the different levels of the game.This is that file which increases the levels and takes the different files of the different levels.Final_Game.c is a variation of the game which emerges in the final level were the user can decide if the user wants to play this level or not.Here the score increases by 100 points and for a wrong choice, decreases by 50.7:Display_Score.c contains the function which will display the score of the users who have played the game in the past.projectheader.h is the header file for the project.
 ===========================================================================================================================
