@@ -82,17 +82,6 @@ int level_time()
 { 
     int i=5,j=5,t=10,x;
     WINDOW *w;
-here:
-    w=create(10,10);
-    mvwprintw(w,17,30,"please wait for %d seconds",i);   
-    i--;  
-    refresh();
-    wrefresh(w);
-    wclear(w);
-    sleep(1);
-    delwin(w);
-    if(i>0)
-        goto here;
 next1: 
     w=create(10,10);
     mvwprintw(w,15,35,": GENERAL RULES :");
@@ -162,7 +151,11 @@ int track_time(char word[],char hint[],int *score,int *chances)
     strcpy(tempword,word);	
     WINDOW *wi;
     wi=create(10,10);
+    wattron(wi,COLOR_PAIR(4));
+    wattron(wi,A_REVERSE);
     mvwprintw(wi,1,36,"HANGMAN!!!");
+    wattroff(wi,A_REVERSE);
+    wattroff(wi,COLOR_PAIR(4));
     wattron(wi,COLOR_PAIR(3));
     mvwprintw(wi,1,60,"LEVEL::");
     wattroff(wi,COLOR_PAIR(3));
@@ -190,7 +183,11 @@ int track_time(char word[],char hint[],int *score,int *chances)
 
     while((*chances)!=6 && strlen(word)!=0)
     {
+        wattron(wi,COLOR_PAIR(4));
+        wattron(wi,A_REVERSE);
         mvwprintw(wi,1,36,"HANGMAN!!!");
+        wattroff(wi,A_REVERSE);
+        wattroff(wi,COLOR_PAIR(4));
         wattron(wi,COLOR_PAIR(3));
         mvwprintw(wi,1,60,"LEVEL::");
         mvwprintw(wi,4,2,"HINT::");
@@ -204,7 +201,7 @@ int track_time(char word[],char hint[],int *score,int *chances)
         wattron(wi,COLOR_PAIR(2));
         mvwprintw(wi,3,79,"%d",6-(*chances));
         mvwprintw(wi,3,63,"CHANCES LEFT::");
-        mvwprintw(wi,1,69,"TIME_TRIAL");
+        mvwprintw(wi,1,69,"FINAL");
         mvwprintw(wi,14,2,"WRONG CHOICES");
         wattroff(wi,COLOR_PAIR(2));
         mvwprintw(wi,6,2,"please enter letter:");
@@ -265,14 +262,13 @@ int track_time(char word[],char hint[],int *score,int *chances)
         else if(check==27)
             return 27;
         refresh();
-        wrefresh(wi);
-
-        wclear(wi);
+        wrefresh(wi); 
         wattron(wi,COLOR_PAIR(1));
         wattron(wi,A_REVERSE);
-        box(wi,0,0);
-        wattroff(wi,A_REVERSE);
+        box(wi,0,0);//creating the window borders
         wattroff(wi,COLOR_PAIR(1));
+        wattroff(wi,A_REVERSE);
+
     }
     if((*chances)==6)
     {

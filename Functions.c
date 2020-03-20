@@ -17,6 +17,7 @@ WINDOW *create(int a,int b)
     getmaxyx(stdscr,row,col);
     w=newwin((row*3)/4,(col*3)/4,a,b);
     start_color();
+
     init_pair(1,COLOR_BLUE,COLOR_BLACK);
     init_pair(2,COLOR_RED,COLOR_BLACK);
     init_pair(3,COLOR_YELLOW,COLOR_BLACK);
@@ -26,14 +27,17 @@ WINDOW *create(int a,int b)
 
     box(w,0,0);
 
+    refresh();
+    wrefresh(w);
+    wattroff(w,COLOR_PAIR(1));
+    wattron(w,COLOR_PAIR(4));
     mvwprintw(w,1,36,"HANGMAN!!!");
     refresh();
     wrefresh(w);
     wattroff(w,A_REVERSE);
-    wattroff(w,COLOR_PAIR(1));
+    wattroff(w,COLOR_PAIR(4));
     return w;
 }
-
 
 /*TO display the picture of a hangman
  * written by Sushil 173247
@@ -146,7 +150,6 @@ void Display_man(WINDOW *w,int level)
 }
 
 
-
 /*function to display the first start of tht game,the description of the game
  *written by Sushil 173247
  */
@@ -184,7 +187,7 @@ void start_game()
     refresh();
     wrefresh(w);
     sleep(2);
-    mvwprintw(w,10,2,"It consists of a set of questions in each level.");
+    mvwprintw(w,10,2," It consists of a set of questions in each level.");
     refresh();
     wrefresh(w);
     sleep(2);
@@ -196,7 +199,7 @@ void start_game()
     refresh();
     wrefresh(w);
     sleep(2);
-    mvwprintw(w,13,2,"a wrong guess would decrease the score by 10.");
+    mvwprintw(w,13,2,"A wrong guess would decrease the score by 10.");
     refresh();
     wrefresh(w);
     sleep(2);
@@ -212,10 +215,11 @@ HERE:
     wattron(w,COLOR_PAIR(3));
     if(i%2)
         mvwprintw(w,20,16,".....");
-    else 
+    else
         mvwprintw(w,20,16,"     ");
+
     refresh();
-    wrefresh(w);    
+    wrefresh(w);
     wattroff(w,COLOR_PAIR(3));
     --i;
     sleep (1);
@@ -236,8 +240,6 @@ HERE:
     sleep(1);
     wattroff(w,COLOR_PAIR(3));
     delwin(w);
-
-
 
     w=create(10,10);
 
@@ -263,7 +265,7 @@ HERE:
  * written by Anirudh 173232
  * */
 void print_menu(WINDOW *w,int h)
-{	
+{   
     int x,i;
     x=2;
     char *item=malloc(200);
@@ -288,7 +290,6 @@ void print_menu(WINDOW *w,int h)
     wrefresh(w);
 }
 
-
 /*function to get which choice the user wants to choose
  * written by Anirudh 173232
  * */
@@ -299,7 +300,7 @@ int chosen_choice()
     int highlight=1,c,y,x;
     print_menu(wi,highlight);
     while(1)
-    {		
+    {       
         c=getch();
         switch(c)
         {
@@ -339,18 +340,17 @@ int chosen_choice()
 
 }
 
-
-
 //functions to get the level of the game and print that the level has been completed//
 //written by Sushil 173247
 void levelcheck(int level)
 {
+    int i;
     WINDOW *w;
     w=create(10,10);
     switch(level)
     {
-        case 5:
         case 4:
+        case 5:
             wattron(w,COLOR_PAIR(4));
             mvwprintw(w,10,33,"\\");
             mvwprintw(w,10,34,"O/");
@@ -361,30 +361,32 @@ void levelcheck(int level)
             mvwprintw(w,16,30,"CONGRATULATIONS...");
             if(level==4)
             {
-                wattron(w,COLOR_PAIR(2));
-                mvwprintw(w,18,30,"PLEASE WAIT FOR THE FINAL MISSION");
-                wattroff(w,COLOR_PAIR(2));
                 wattron(w,COLOR_PAIR(4));
+                mvwprintw(w,18,30,"PLEASE WAIT FOR THE FINAL MISSION");
                 mvwprintw(w,19,30,"LOADING");
                 wattroff(w,COLOR_PAIR(4));
                 refresh();
                 wrefresh(w);
-                for(int i=0;i<10;i++)
+                for( i=0;i<10;i++)
                 {
-                    if(i%2)
-                        mvwprintw(w,19,38,"...");
+                    if(i%2==0)
+                    {
+                        mvwprintw(w,19,38,"...    ");
+                        refresh();
+                        wrefresh(w);
+                    }
                     else 
+                    {
                         mvwprintw(w,19,38,"......");
+                        refresh();
+                        wrefresh(w);
+                    }
                     sleep(1);
-                    refresh();
-                    wrefresh(w);
                 }
             }
             else if(level == 5)
             {
-                wattron(w,COLOR_PAIR(4));
                 mvwprintw(w,18,33,"MISSION COMPLETED!!!!!!!");
-                wattroff(w,COLOR_PAIR(4));
                 refresh();
                 wrefresh(w);
                 getch();
@@ -399,14 +401,20 @@ void levelcheck(int level)
             mvwprintw(w,23,39,"%d",level);
             mvwprintw(w,23,42,"Completed");
             wattroff(w,COLOR_PAIR(4));
+            refresh();
+            wrefresh(w);
+            getch();
             break;
         case 0:
             wattron(w,COLOR_PAIR(2));
             Display_man(w,6);
             mvwprintw(w,13,20,"SORRY!!!!!!!!....... GAME OVER!!!");
             wattroff(w,COLOR_PAIR(2));
+            refresh();
+            wrefresh(w);
+            getch();
+            break;
     }
-
     refresh();
     wrefresh(w);
     delwin(w);
@@ -425,7 +433,7 @@ node *search(node* head,int x)
     }
 }
 
-//function to create a linked list for the storage of the number,hint and the word in random order 
+//function to create a linked list for the storae of the number,hint anf the word in random order 
 //witten by Sushil 173247
 node* linklist(node *head,int x,FILE *f)
 {
@@ -474,14 +482,14 @@ int track(char word[],char hint[],int *score,int *chances,int level)
     char forming[20];
     int i,j;
 
-    strcpy(tempword,word);	
+    strcpy(tempword,word);  
     WINDOW *wi;
     wi=create(10,10);
-    wattron(wi,COLOR_PAIR(1));
+    wattron(wi,COLOR_PAIR(4));
     wattron(wi,A_REVERSE);
     mvwprintw(wi,1,36,"HANGMAN!!!");
     wattroff(wi,A_REVERSE);
-    wattroff(wi,COLOR_PAIR(1));
+    wattroff(wi,COLOR_PAIR(4));
     wattron(wi,COLOR_PAIR(3));
     mvwprintw(wi,1,70,"LEVEL::");
     mvwprintw(wi,1,79,"%d",level);
@@ -512,11 +520,11 @@ int track(char word[],char hint[],int *score,int *chances,int level)
 
     while((*chances)!=6 && strlen(word)!=0)
     {
-        wattron(wi,COLOR_PAIR(1));
+        wattron(wi,COLOR_PAIR(4));
         wattron(wi,A_REVERSE);
         mvwprintw(wi,1,36,"HANGMAN!!!");
         wattroff(wi,A_REVERSE);
-        wattroff(wi,COLOR_PAIR(1));
+        wattroff(wi,COLOR_PAIR(4));
         wattron(wi,COLOR_PAIR(3));
         mvwprintw(wi,1,70,"LEVEL::");
         mvwprintw(wi,1,79,"%d",level);
@@ -607,7 +615,7 @@ int track(char word[],char hint[],int *score,int *chances,int level)
         wattroff(wi,COLOR_PAIR(1));
     }
     if((*chances)==6)
-    {		
+    {       
         Display_man(wi,6);
         refresh();
         wrefresh(wi);
@@ -627,6 +635,7 @@ int track(char word[],char hint[],int *score,int *chances,int level)
     wrefresh(wi);
     delwin(wi);
 }
+
 
 //To check the given letter and store the scores//
 //written by Sushil 173232
@@ -673,7 +682,7 @@ int checkletter(char c,char s[])
 
 
 //function to search the positon of the character in the word and return the value of the position
-//written by Anirudh 173232
+//written by sushil 173247
 int searchpos(char c,char word[])
 {
     for (int i=0;i<strlen(word);i++)
@@ -705,7 +714,7 @@ node* delete_list(node *head)
         t1=t2;
         t2=t1->next;
     }
-here:	return t1;
+here:   return t1;
 }
 
 //functions to print the option to ask the user if he really wants to quit
@@ -717,7 +726,7 @@ int chosen_yes_no()
     int highlight=1,c,y,x;
     print_yes_no(wi,highlight);
     while(1)
-    {		
+    {       
         c=getch();
         switch(c)
         {
@@ -751,7 +760,7 @@ int chosen_yes_no()
 }
 //written by Sushil 173247
 void print_yes_no(WINDOW *w,int h)
-{	
+{   
     int x,i;
     x=30;
     char *item=malloc(200);
@@ -774,3 +783,4 @@ void print_yes_no(WINDOW *w,int h)
     refresh();
     wrefresh(w);
 }
+

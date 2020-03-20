@@ -64,6 +64,7 @@ next:
                 else if(flag==27)
                 {
                     fclose(f);
+                    playerdetails(score);
                     return 27;
                 }
             }
@@ -108,6 +109,7 @@ next:
                 else if(flag==27)
                 {
                     fclose(f);
+                    playerdetails(score);
                     return 27;
                 }					
             }
@@ -151,6 +153,7 @@ next:
                 else if(flag==27)
                 {
                     fclose(f);
+                    playerdetails(score);
                     return 27;
                 }					
             }
@@ -194,6 +197,7 @@ next:
                 else if(flag==27)
                 {
                     fclose(f);
+                    playerdetails(score);
                     return 27;
                 }
             }
@@ -208,7 +212,8 @@ next:
                 levelcheck(4);
                 w=create(10,10);
                 wattron(w,COLOR_PAIR(4));
-                mvwprintw(w,5,15,"WELCOME TO THE TIME WHEN YOU HAVE A WAY TO INCREASE THE POINTS IN HUNDREDS");
+                mvwprintw(w,5,5,"WELCOME TO THE TIME WHEN YOU HAVE A WAY TO INCREASE THE POINTS IN HUNDREDS");
+                mvwprintw(w,6,5,"PRESS ENTER!!!!!!");
                 refresh();
                 wrefresh(w);
                 getch();
@@ -262,6 +267,7 @@ next:
                 {
                     fclose(f);
                     head=delete_list(head);
+                    playerdetails(score);
                     return 27;
                 }					
             }
@@ -274,8 +280,8 @@ next:
             }		
             else
                 levelcheck(5);
-                playerdetails(score);
-                head=delete_list(head);
+            playerdetails(score);
+            head=delete_list(head);
             ++i;
             fclose(f);
             head=delete_list(head);

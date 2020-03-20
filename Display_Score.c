@@ -9,7 +9,7 @@ void display_score()
     play D;
     char ch;
     f=fopen("playerdetails","r");
-    if(f==NULL)
+    if(f==NULL)//the file does not exist ie. the game has not been played before
     {
         w=create(10,10);
         wattron(w,COLOR_PAIR(2));
@@ -25,7 +25,7 @@ void display_score()
     }
     fread(&D,sizeof(D),1,f);
     w=create(10,10);
-repeat:
+repeat:             //the file is present and thus the file is displayed batchwise, ie. the window is filled with previous players info and then the next batch arrives when the user presses enter
     i=0;
     j=0;
     wattron(w,COLOR_PAIR(4));
@@ -54,6 +54,7 @@ repeat:
         wattroff(w,COLOR_PAIR(2));
         refresh();
         wrefresh(w);
+        getch();
         goto here;
     }
     wclear(w);
@@ -65,6 +66,7 @@ repeat:
         wattroff(w,COLOR_PAIR(2));
         refresh();
         wrefresh(w);
+        getch();
         goto here;
     }
     goto repeat;
@@ -164,7 +166,7 @@ enter:
     wgetstr(w,p.name);
     mvwprintw(w,4,2,"Age:");
     wscanw(w,"%d",&p.age);
-    if(p.age<=0)
+    if(p.age<=0 ||p.age >=100)
     {
         mvwprintw(w,5,2,"the age is invalid please enter the details again");
         refresh();
