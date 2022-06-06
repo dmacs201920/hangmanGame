@@ -15,9 +15,9 @@ Features Implemented:
 ============================================================================================================================
  Description of the game:
         The game has built in a basic way with 5 levels.
-        Using the header ncurses.h we have tred and worked in a window that has been created by us on top of the standard output window.
-        The game requires a person to guess the word letter by letter by seeing the hint that has been provided by the proramer.
-        The words and the hints are taken at random from the respective text files that have been fed by the programmer.
+        Using the header ncurses.h we have tried and worked in a window that has been created by us on top of the standard output window.
+        The game requires a person to guess the word letter by letter by seeing the hint that has been provided by the developer.
+        The words and the hints are taken at random from the respective text files that have been fed by the developer.
         There is a read demo and also a play demo available to help the user get a hang of the game hangman.
         At some places the user has to wait for sometime as we have used the function sleep for back counting.
         All the levels are to be played using lowercase only.
